@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -24,7 +23,7 @@ const Index = () => {
   const [originalText, setOriginalText] = useState('');
   const [translations, setTranslations] = useState<Record<string, any>>({});
   const [isTranslating, setIsTranslating] = useState(false);
-  const [apiKey, setApiKey] = useState('');
+  const [apiKey, setApiKey] = useState('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');
   const [activeTab, setActiveTab] = useState('translate');
 
   const handleTranslateAll = async () => {
@@ -196,17 +195,6 @@ const Index = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700 font-noto">API 키</label>
-                  <input
-                    type="password"
-                    value={apiKey}
-                    onChange={(e) => setApiKey(e.target.value)}
-                    placeholder="OpenAI API 키를 입력하세요"
-                    className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent text-sm font-noto"
-                  />
-                </div>
-                
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-slate-700 font-noto">원문 (한국어)</label>
                   <Textarea
