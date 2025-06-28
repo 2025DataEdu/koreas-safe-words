@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -87,87 +86,98 @@ const Index = () => {
   };
 
   const getQualityColor = (score: number) => {
-    if (score >= 80) return 'text-green-600';
-    if (score >= 60) return 'text-yellow-600';
-    return 'text-red-600';
+    if (score >= 80) return 'text-emerald-600';
+    if (score >= 60) return 'text-amber-600';
+    return 'text-red-500';
   };
 
   const getQualityIcon = (score: number) => {
-    if (score >= 80) return <CheckCircle className="w-5 h-5 text-green-600" />;
-    if (score >= 60) return <AlertTriangle className="w-5 h-5 text-yellow-600" />;
-    return <XCircle className="w-5 h-5 text-red-600" />;
+    if (score >= 80) return <CheckCircle className="w-4 h-4 text-emerald-600" />;
+    if (score >= 60) return <AlertTriangle className="w-4 h-4 text-amber-600" />;
+    return <XCircle className="w-4 h-4 text-red-500" />;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 p-4">
-      <div className="max-w-6xl mx-auto space-y-6">
-        {/* 헤더 */}
-        <div className="text-center space-y-4">
-          <div className="flex items-center justify-center gap-3">
-            <Shield className="w-8 h-8 text-red-600" />
-            <h1 className="text-4xl font-bold text-gray-900">재난문자 다국어 번역 시스템</h1>
-            <Globe className="w-8 h-8 text-red-600" />
+    <div className="min-h-screen bg-slate-50">
+      {/* 깔끔한 헤더 */}
+      <header className="bg-white border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="flex items-center justify-center gap-4">
+            <div className="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center">
+              <Shield className="w-6 h-6 text-white" />
+            </div>
+            <div className="text-center">
+              <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+                재난문자 다국어 번역 시스템
+              </h1>
+              <p className="text-slate-600 mt-1">
+                Emergency Message Multi-language Translation System
+              </p>
+            </div>
           </div>
-          <p className="text-lg text-gray-600">
-            행정안전부 재난문자를 정확하고 신속하게 다국어로 번역합니다
-          </p>
         </div>
+      </header>
 
-        {/* 탭 네비게이션 */}
-        <div className="flex justify-center space-x-4">
-          {[
-            { id: 'translate', label: '번역', icon: Globe },
-            { id: 'dictionary', label: '사전 관리', icon: Shield },
-            { id: 'history', label: '번역 이력', icon: RefreshCw }
-          ].map(tab => (
-            <Button
-              key={tab.id}
-              variant={activeTab === tab.id ? 'default' : 'outline'}
-              onClick={() => setActiveTab(tab.id)}
-              className="flex items-center gap-2"
-            >
-              <tab.icon className="w-4 h-4" />
-              {tab.label}
-            </Button>
-          ))}
+      <main className="max-w-7xl mx-auto px-6 py-8">
+        {/* 탭 네비게이션 - 미니멀한 스타일 */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-white rounded-xl p-2 shadow-sm border border-slate-200">
+            {[
+              { id: 'translate', label: '번역', icon: Globe },
+              { id: 'dictionary', label: '사전 관리', icon: Shield },
+              { id: 'history', label: '번역 이력', icon: RefreshCw }
+            ].map(tab => (
+              <Button
+                key={tab.id}
+                variant={activeTab === tab.id ? 'default' : 'ghost'}
+                onClick={() => setActiveTab(tab.id)}
+                className="flex items-center gap-2 px-6 py-2 text-sm font-medium"
+              >
+                <tab.icon className="w-4 h-4" />
+                {tab.label}
+              </Button>
+            ))}
+          </div>
         </div>
 
         {activeTab === 'translate' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* 입력 섹션 */}
-            <Card className="border-2 border-red-200">
-              <CardHeader className="bg-red-50">
-                <CardTitle className="flex items-center gap-2 text-red-700">
-                  <AlertTriangle className="w-5 h-5" />
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+            {/* 입력 섹션 - 깔끔한 카드 스타일 */}
+            <Card className="shadow-sm border-slate-200">
+              <CardHeader className="pb-4">
+                <CardTitle className="flex items-center gap-3 text-slate-900 text-lg font-semibold">
+                  <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center">
+                    <AlertTriangle className="w-4 h-4 text-slate-700" />
+                  </div>
                   재난문자 입력
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4 pt-6">
-                <div>
-                  <label className="block text-sm font-medium mb-2">API 키</label>
+              <CardContent className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-700">API 키</label>
                   <input
                     type="password"
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
                     placeholder="OpenAI API 키를 입력하세요"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent text-sm"
                   />
                 </div>
                 
-                <div>
-                  <label className="block text-sm font-medium mb-2">원문 (한국어)</label>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-700">원문 (한국어)</label>
                   <Textarea
                     value={originalText}
                     onChange={(e) => setOriginalText(e.target.value)}
                     placeholder="재난문자 내용을 입력하세요..."
-                    className="min-h-32 resize-none"
+                    className="min-h-32 resize-none border-slate-200 focus:ring-slate-900 focus:border-transparent"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium mb-2">번역 언어</label>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-700">번역 언어</label>
                   <Select value={targetLanguage} onValueChange={setTargetLanguage}>
-                    <SelectTrigger>
+                    <SelectTrigger className="border-slate-200 focus:ring-slate-900">
                       <SelectValue placeholder="번역할 언어를 선택하세요" />
                     </SelectTrigger>
                     <SelectContent>
@@ -186,7 +196,7 @@ const Index = () => {
                 <Button
                   onClick={handleTranslate}
                   disabled={isTranslating}
-                  className="w-full bg-red-600 hover:bg-red-700"
+                  className="w-full bg-slate-900 hover:bg-slate-800 text-white py-3 rounded-lg font-medium"
                 >
                   {isTranslating ? (
                     <>
@@ -203,33 +213,35 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            {/* 결과 섹션 */}
-            <Card className="border-2 border-green-200">
-              <CardHeader className="bg-green-50">
-                <CardTitle className="flex items-center gap-2 text-green-700">
-                  <CheckCircle className="w-5 h-5" />
+            {/* 결과 섹션 - 깔끔한 카드 스타일 */}
+            <Card className="shadow-sm border-slate-200">
+              <CardHeader className="pb-4">
+                <CardTitle className="flex items-center gap-3 text-slate-900 text-lg font-semibold">
+                  <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                    <CheckCircle className="w-4 h-4 text-emerald-700" />
+                  </div>
                   번역 결과
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-6">
+              <CardContent>
                 {targetLanguage && translations[targetLanguage] ? (
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">번역문</label>
-                      <div className="p-3 bg-gray-50 rounded-md border">
+                  <div className="space-y-6">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-slate-700">번역문</label>
+                      <div className="p-4 bg-slate-50 rounded-lg border border-slate-200 text-slate-900">
                         {translations[targetLanguage].translated}
                       </div>
                     </div>
 
-                    <div>
-                      <label className="block text-sm font-medium mb-2">역번역 검증</label>
-                      <div className="p-3 bg-blue-50 rounded-md border">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-slate-700">역번역 검증</label>
+                      <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 text-slate-900">
                         {translations[targetLanguage].reverseTranslated}
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-between p-4 bg-white rounded-lg border border-slate-200">
+                      <div className="flex items-center gap-3">
                         {getQualityIcon(translations[targetLanguage].qualityScore)}
                         <span className={`font-medium ${getQualityColor(translations[targetLanguage].qualityScore)}`}>
                           품질 점수: {translations[targetLanguage].qualityScore}%
@@ -238,12 +250,12 @@ const Index = () => {
                     </div>
 
                     {translations[targetLanguage].warnings.length > 0 && (
-                      <Alert className="border-yellow-200 bg-yellow-50">
-                        <AlertTriangle className="h-4 w-4" />
+                      <Alert className="border-amber-200 bg-amber-50">
+                        <AlertTriangle className="h-4 w-4 text-amber-600" />
                         <AlertDescription>
-                          <div className="space-y-1">
+                          <div className="flex flex-wrap gap-2 mt-2">
                             {translations[targetLanguage].warnings.map((warning: string, index: number) => (
-                              <Badge key={index} variant="outline" className="mr-2">
+                              <Badge key={index} variant="outline" className="border-amber-300 text-amber-700 bg-amber-50">
                                 {warning}
                               </Badge>
                             ))}
@@ -253,8 +265,11 @@ const Index = () => {
                     )}
                   </div>
                 ) : (
-                  <div className="text-center text-gray-500 py-8">
-                    번역 결과가 여기에 표시됩니다
+                  <div className="text-center py-12">
+                    <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Globe className="w-8 h-8 text-slate-400" />
+                    </div>
+                    <p className="text-slate-500 text-sm">번역 결과가 여기에 표시됩니다</p>
                   </div>
                 )}
               </CardContent>
@@ -262,9 +277,18 @@ const Index = () => {
           </div>
         )}
 
-        {activeTab === 'dictionary' && <DictionaryManager />}
-        {activeTab === 'history' && <TranslationHistory translations={translations} />}
-      </div>
+        {activeTab === 'dictionary' && (
+          <div className="max-w-4xl mx-auto">
+            <DictionaryManager />
+          </div>
+        )}
+        
+        {activeTab === 'history' && (
+          <div className="max-w-6xl mx-auto">
+            <TranslationHistory translations={translations} />
+          </div>
+        )}
+      </main>
     </div>
   );
 };
