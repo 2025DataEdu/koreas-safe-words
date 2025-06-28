@@ -149,12 +149,12 @@ const Index = () => {
       {/* 깔끔한 헤더 */}
       <header className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="flex items-center justify-center gap-6">
-            <div className="w-20 h-20 flex items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-4">
+            <div className="w-32 h-32 flex items-center justify-center">
               <img 
                 src="/lovable-uploads/9d5eb76b-881b-45b8-ab74-0f914ae40cd2.png" 
                 alt="행정안전부 로고" 
-                className="w-20 h-20 object-contain"
+                className="w-32 h-32 object-contain"
               />
             </div>
             <div className="text-center">
