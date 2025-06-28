@@ -244,7 +244,7 @@ const evaluateAmbiguousTerms = (original: string, translated: string, reverseTra
 };
 
 const getContextClues = (text: string, term: string): string[] => {
-  const contextClues: Record<string, string[]> = {
+  const contextClues: Record<string, Record<string, string[]>> = {
     '수원': {
       '지명': ['시', '경기도', '화성', '용인', '지역'],
       '물': ['공급', '확보', '오염', '부족', '급수']
