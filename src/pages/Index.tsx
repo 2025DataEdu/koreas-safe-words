@@ -6,7 +6,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { AlertTriangle, CheckCircle, XCircle, RefreshCw, Globe, Shield } from 'lucide-react';
 import { translateText, reverseTranslateText } from '@/utils/translationService';
-import { getTranslationQuality } from '@/utils/qualityChecker';
+import { getTranslationQuality, generateImprovementSuggestions } from '@/utils/qualityChecker';
 import { DISASTER_TERMS, AMBIGUOUS_TERMS } from '@/utils/dictionaries';
 import DictionaryManager from '@/components/DictionaryManager';
 import TranslationHistory from '@/components/TranslationHistory';
@@ -45,8 +45,17 @@ const Index = () => {
           // 2단계: 역번역으로 검증
           const reverseTranslated = await reverseTranslateText(translated, language.code, apiKey);
           
-          // 3단계: 품질 평가
-          const qualityScore = getTranslationQuality(originalText, reverseTranslated);
+          // 3단계: 개선된 품질 평가 (문화적 맥락, 사전 기반 포함)
+          const qualityScore = getTranslationQuality(originalText, reverseTranslated, translated, language.code);
+          
+          // 4단계: 개선 제안 생성
+          const improvementSuggestions = generateImprovementSuggestions(
+            originalText, 
+            translated, 
+            reverseTranslated, 
+            qualityScore,
+            language.code
+          );
           
           return {
             langCode: language.code,
@@ -56,7 +65,8 @@ const Index = () => {
               reverseTranslated,
               qualityScore,
               timestamp: new Date().toISOString(),
-              warnings: checkForWarnings(originalText, translated)
+              warnings: checkForWarnings(originalText, translated),
+              improvementSuggestions
             }
           };
         } catch (error) {
@@ -69,7 +79,8 @@ const Index = () => {
               reverseTranslated: '번역 실패',
               qualityScore: 0,
               timestamp: new Date().toISOString(),
-              warnings: ['번역 중 오류가 발생했습니다.']
+              warnings: ['번역 중 오류가 발생했습니다.'],
+              improvementSuggestions: ['번역 서비스 연결을 확인해주세요.']
             }
           };
         }
@@ -225,7 +236,7 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            {/* 결과 섹션 - 모든 언어 번역 결과 */}
+            {/* 결과 섹션 - 개선된 번역 결과 표시 */}
             {Object.keys(translations).length > 0 && (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {SUPPORTED_LANGUAGES.map(language => (
@@ -263,6 +274,20 @@ const Index = () => {
                               </span>
                             </div>
                           </div>
+
+                          {/* 개선 제안 섹션 추가 */}
+                          {translations[language.code].improvementSuggestions && translations[language.code].improvementSuggestions.length > 0 && (
+                            <div className="space-y-2">
+                              <label className="text-sm font-medium text-slate-700 font-noto">개선 제안</label>
+                              <div className="space-y-2">
+                                {translations[language.code].improvementSuggestions.map((suggestion: string, index: number) => (
+                                  <div key={index} className="p-3 bg-amber-50 rounded-lg border border-amber-200">
+                                    <span className="text-sm text-amber-800 font-noto">{suggestion}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
 
                           {translations[language.code].warnings.length > 0 && (
                             <Alert className="border-amber-200 bg-amber-50">
