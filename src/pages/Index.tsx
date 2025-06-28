@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -135,7 +134,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 font-noto">
       {/* 깔끔한 헤더 */}
       <header className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-6 py-8">
@@ -144,10 +143,10 @@ const Index = () => {
               <Shield className="w-6 h-6 text-white" />
             </div>
             <div className="text-center">
-              <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+              <h1 className="text-2xl font-bold text-slate-900 tracking-tight font-noto">
                 재난문자 다국어 번역 시스템
               </h1>
-              <p className="text-slate-600 mt-1">
+              <p className="text-slate-600 mt-1 font-normal">
                 Emergency Message Multi-language Translation System
               </p>
             </div>
@@ -168,7 +167,7 @@ const Index = () => {
                 key={tab.id}
                 variant={activeTab === tab.id ? 'default' : 'ghost'}
                 onClick={() => setActiveTab(tab.id)}
-                className="flex items-center gap-2 px-6 py-2 text-sm font-medium"
+                className="flex items-center gap-2 px-6 py-2 text-sm font-medium font-noto"
               >
                 <tab.icon className="w-4 h-4" />
                 {tab.label}
@@ -182,7 +181,7 @@ const Index = () => {
             {/* 입력 섹션 - 깔끔한 카드 스타일 */}
             <Card className="shadow-sm border-slate-200">
               <CardHeader className="pb-4">
-                <CardTitle className="flex items-center gap-3 text-slate-900 text-lg font-semibold">
+                <CardTitle className="flex items-center gap-3 text-slate-900 text-lg font-semibold font-noto">
                   <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center">
                     <AlertTriangle className="w-4 h-4 text-slate-700" />
                   </div>
@@ -191,30 +190,30 @@ const Index = () => {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">API 키</label>
+                  <label className="text-sm font-medium text-slate-700 font-noto">API 키</label>
                   <input
                     type="password"
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
                     placeholder="OpenAI API 키를 입력하세요"
-                    className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent text-sm"
+                    className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent text-sm font-noto"
                   />
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">원문 (한국어)</label>
+                  <label className="text-sm font-medium text-slate-700 font-noto">원문 (한국어)</label>
                   <Textarea
                     value={originalText}
                     onChange={(e) => setOriginalText(e.target.value)}
                     placeholder="재난문자 내용을 입력하세요..."
-                    className="min-h-32 resize-none border-slate-200 focus:ring-slate-900 focus:border-transparent"
+                    className="min-h-32 resize-none border-slate-200 focus:ring-slate-900 focus:border-transparent font-noto"
                   />
                 </div>
 
                 <Button
                   onClick={handleTranslateAll}
                   disabled={isTranslating}
-                  className="w-full bg-slate-900 hover:bg-slate-800 text-white py-3 rounded-lg font-medium"
+                  className="w-full bg-slate-900 hover:bg-slate-800 text-white py-3 rounded-lg font-medium font-noto"
                 >
                   {isTranslating ? (
                     <>
@@ -238,7 +237,7 @@ const Index = () => {
                   translations[language.code] && (
                     <Card key={language.code} className="shadow-sm border-slate-200">
                       <CardHeader className="pb-4">
-                        <CardTitle className="flex items-center gap-3 text-slate-900 text-lg font-semibold">
+                        <CardTitle className="flex items-center gap-3 text-slate-900 text-lg font-semibold font-noto">
                           <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
                             <span className="text-lg">{language.flag}</span>
                           </div>
@@ -248,15 +247,15 @@ const Index = () => {
                       <CardContent>
                         <div className="space-y-6">
                           <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700">번역문</label>
-                            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200 text-slate-900">
+                            <label className="text-sm font-medium text-slate-700 font-noto">번역문</label>
+                            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200 text-slate-900 font-noto">
                               {translations[language.code].translated}
                             </div>
                           </div>
 
                           <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700">역번역 검증</label>
-                            <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 text-slate-900">
+                            <label className="text-sm font-medium text-slate-700 font-noto">역번역 검증</label>
+                            <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 text-slate-900 font-noto">
                               {translations[language.code].reverseTranslated}
                             </div>
                           </div>
@@ -264,7 +263,7 @@ const Index = () => {
                           <div className="flex items-center justify-between p-4 bg-white rounded-lg border border-slate-200">
                             <div className="flex items-center gap-3">
                               {getQualityIcon(translations[language.code].qualityScore)}
-                              <span className={`font-medium ${getQualityColor(translations[language.code].qualityScore)}`}>
+                              <span className={`font-medium font-noto ${getQualityColor(translations[language.code].qualityScore)}`}>
                                 품질 점수: {translations[language.code].qualityScore}%
                               </span>
                             </div>
@@ -276,7 +275,7 @@ const Index = () => {
                               <AlertDescription>
                                 <div className="flex flex-wrap gap-2 mt-2">
                                   {translations[language.code].warnings.map((warning: string, index: number) => (
-                                    <Badge key={index} variant="outline" className="border-amber-300 text-amber-700 bg-amber-50">
+                                    <Badge key={index} variant="outline" className="border-amber-300 text-amber-700 bg-amber-50 font-noto">
                                       {warning}
                                     </Badge>
                                   ))}
@@ -298,7 +297,7 @@ const Index = () => {
                 <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Globe className="w-8 h-8 text-slate-400" />
                 </div>
-                <p className="text-slate-500 text-sm">모든 언어의 번역 결과가 여기에 표시됩니다</p>
+                <p className="text-slate-500 text-sm font-noto">모든 언어의 번역 결과가 여기에 표시됩니다</p>
               </div>
             )}
           </div>
