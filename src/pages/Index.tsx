@@ -155,24 +155,26 @@ const Index = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8">
-        {/* 탭 네비게이션 - 미니멀한 스타일 */}
+        {/* 탭 네비게이션 - 개선된 스타일 */}
         <div className="flex justify-center mb-8">
-          <div className="bg-white rounded-xl p-2 shadow-sm border border-slate-200">
-            {[
-              { id: 'translate', label: '번역', icon: Globe },
-              { id: 'dictionary', label: '사전 관리', icon: Shield },
-              { id: 'history', label: '번역 이력', icon: RefreshCw }
-            ].map(tab => (
-              <Button
-                key={tab.id}
-                variant={activeTab === tab.id ? 'default' : 'ghost'}
-                onClick={() => setActiveTab(tab.id)}
-                className="flex items-center gap-2 px-6 py-2 text-sm font-medium font-noto"
-              >
-                <tab.icon className="w-4 h-4" />
-                {tab.label}
-              </Button>
-            ))}
+          <div className="w-full max-w-2xl bg-white rounded-xl p-2 shadow-sm border border-slate-200">
+            <div className="grid grid-cols-3 gap-2">
+              {[
+                { id: 'translate', label: '번역', icon: Globe },
+                { id: 'dictionary', label: '사전 관리', icon: Shield },
+                { id: 'history', label: '번역 이력', icon: RefreshCw }
+              ].map(tab => (
+                <Button
+                  key={tab.id}
+                  variant={activeTab === tab.id ? 'default' : 'ghost'}
+                  onClick={() => setActiveTab(tab.id)}
+                  className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium font-noto w-full"
+                >
+                  <tab.icon className="w-4 h-4" />
+                  {tab.label}
+                </Button>
+              ))}
+            </div>
           </div>
         </div>
 
